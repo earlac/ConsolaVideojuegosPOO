@@ -1,6 +1,8 @@
 package SpaceInvaders;
 
-
+//F: Contiene todos los valores que se utilizarán en el código, tamaños de ventana, tiempos de delay y timers.
+//E: NA
+//S: NA
 public interface Commons {
 
     int BOARD_WIDTH = 358;
