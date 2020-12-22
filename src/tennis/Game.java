@@ -7,42 +7,27 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Game extends JPanel {
+public class Game extends JPanel implements Runnable{
 
-    Ball ball = new Ball(this);
-    Racquet racquet = new Racquet(this);
+    Bola Bola = new Bola(this);
+    Raqueta racquet = new Raqueta(this);
     int speed = 1;
 
     private int getScore() {
         return speed - 1;
     }
 
-    public Game() {
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                racquet.keyReleased(e);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                racquet.keyPressed(e);
-            }
-        });
-        setFocusable(true);
-    }
-
     private void move() {
-        ball.move();
+        Bola.move();
         racquet.move();
     }
 
@@ -52,7 +37,7 @@ public class Game extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        ball.paint(g2d);
+        Bola.paint(g2d);
         racquet.paint(g2d);
 
         g2d.setColor(Color.GRAY);
@@ -75,10 +60,34 @@ public class Game extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        while (true) {
-            game.move();
-            game.repaint();
-            Thread.sleep(10);
+    }
+
+    @Override
+    public void run() {
+        try {
+            ServerSocket servidor = new ServerSocket(9999);
+            while(true) {
+                Game game = new Game();
+                game.move();
+                game.repaint();
+
+                Socket misocket = servidor.accept();
+
+                DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
+
+                String mensaje_texto = flujo_entrada.readUTF();
+
+                Raqueta.presiono(mensaje_texto);
+
+
+                System.out.println("Servidor conectado");
+                misocket.close();
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            System.out.println("error run servidor");
         }
     }
 }

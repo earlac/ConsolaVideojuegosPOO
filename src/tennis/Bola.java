@@ -3,7 +3,7 @@ package tennis;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class Ball {
+public class Bola {
     private static final int DIAMETER = 30;
 
     int x = 0;
@@ -12,7 +12,7 @@ public class Ball {
     int ya = 1;
     private Game game;
 
-    public Ball(Game game) {
+    public Bola(Game game) {
         this.game = game;
     }
 

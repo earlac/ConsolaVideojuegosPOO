@@ -10,7 +10,6 @@ public class Player extends Sprite {
     private int width;
 
     public Player() {
-
         initPlayer();
     }
 
