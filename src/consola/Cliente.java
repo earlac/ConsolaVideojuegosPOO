@@ -31,17 +31,19 @@ class LaminaMarcoCliente extends JPanel{
         EnviaDerecha eventoDerecha = new EnviaDerecha();
         EnviaCentro eventoCentro = new EnviaCentro();
 
-        miboton=new JButton("Izquierda");
-        miboton.addActionListener(eventoIzquierda);
-        add(miboton);
 
-        miboton=new JButton("Derecha");
-        miboton.addActionListener(eventoDerecha);
-        add(miboton);
 
-        miboton=new JButton("Espacio");
-        miboton.addActionListener(eventoCentro);
-        add(miboton);
+        botonIzquierda=new JButton("Izquierda");
+        botonIzquierda.addActionListener(eventoIzquierda);
+        add(botonIzquierda);
+
+        botonDerecha=new JButton("Derecha");
+        botonDerecha.addActionListener(eventoDerecha);
+        add(botonDerecha);
+
+        botonCentro=new JButton("Espacio");
+        botonCentro.addActionListener(eventoCentro);
+        add(botonCentro);
     }
 
     private class EnviaIzquierda implements ActionListener{
@@ -90,6 +92,8 @@ class LaminaMarcoCliente extends JPanel{
         }
     }
 
-    private JButton miboton;
+    private JButton botonIzquierda;
+    private JButton botonDerecha;
+    private JButton botonCentro;
 
 }
