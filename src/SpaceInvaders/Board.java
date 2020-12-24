@@ -41,7 +41,7 @@ public class Board extends JPanel {
         //F: Inicializa los listener,la atención y la ventana.
         //E: NA
         //S: NA
-        addKeyListener(new TAdapter());
+        //addKeyListener(new TAdapter());
         setFocusable(true);
         d = new Dimension(Commons.BOARD_WIDTH, Commons.BOARD_HEIGHT);
         setBackground(Color.black);
@@ -50,6 +50,7 @@ public class Board extends JPanel {
         timer.start();
 
         gameInit();
+        player.run();
     }
 
     private void gameInit() {
@@ -309,33 +310,6 @@ public class Board extends JPanel {
         public void actionPerformed(ActionEvent e) {
 
             doGameCycle();
-        }
-    }
-
-    private class TAdapter extends KeyAdapter {
-        //F: controlador de los diferentes listeners del teclado.
-        //E: NA
-        //S: NA
-        @Override
-        public void keyReleased(KeyEvent e) {
-            player.keyReleased(e);
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            player.keyPressed(e);
-            int x = player.getX();
-            int y = player.getY();
-
-            int key = e.getKeyCode();
-
-            if (key == KeyEvent.VK_SPACE) {
-                if (inGame) {
-                    if (!shot.isVisible()) {
-                        shot = new Shot(x, y);
-                    }
-                }
-            }
         }
     }
 }
